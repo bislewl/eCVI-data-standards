@@ -83,6 +83,7 @@
             10/07/2026: Added optional Manufacturer, LotNumber, Duration and RevaccinationDueDate attributes to Vaccination. Added DurationType.
             10/07/2026: Added optional AdministeredBy attribute to Vaccination.
             10/07/2026: Allow multiple diseases on Vaccination for combination vaccines, as already allowed on Test.
+            10/07/2026: Added optional StatusDate attribute to HerdOrFlockStatus.
         </xs:documentation>
     </xs:annotation>
 
@@ -827,6 +828,13 @@
                 <xs:annotation>
                     <xs:documentation>
                         If the status has a specific level that can do here.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="StatusDate" type="xs:date" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        The date the status was last established, such as the date of the most recent qualifying whole-herd or whole-flock test or the date of certification.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
