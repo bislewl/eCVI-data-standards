@@ -80,6 +80,7 @@
             08/28/2024: Added optional CountryOfOrigin element to Animal and GroupLot.
             01/29/2025: Renamed file to ecvi.xsd, updated target namespace to ecvi
             03/26/2025: Split Exhibition/Show/Rodeo movement option into Exhibition/Show and Rodeo separately.
+            10/07/2026: Added optional Manufacturer, LotNumber, Duration and RevaccinationDueDate attributes to Vaccination. Added DurationType.
         </xs:documentation>
     </xs:annotation>
 
@@ -1025,7 +1026,7 @@
     <xs:element name="Vaccination">
         <xs:annotation>
             <xs:documentation>
-                Vaccination information for animal or group. For now the type of vaccine is left as a simple string. Ideally will become a coded value from a standard set. The date is optional but highly suggested. 
+                Vaccination information for animal or group. For now the type of vaccine is left as a simple string. Ideally will become a coded value from a standard set. The date is optional but highly suggested. Manufacturer, LotNumber, Duration and RevaccinationDueDate are optional and describe the product given, as recorded on a rabies certificate or vaccination record. Duration is the labeled duration of immunity (see DurationType), for example 1a or 3a. RevaccinationDueDate is the date the next dose is due, which receiving jurisdictions may use to confirm the vaccination is current.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1035,6 +1036,10 @@
             </xs:choice>
             <xs:attribute name="VaccineType" type="nonNullString" use="optional"/>
             <xs:attribute name="Date" type="xs:date" use="optional"/>
+            <xs:attribute name="Manufacturer" type="nonNullString" use="optional"/>
+            <xs:attribute name="LotNumber" type="nonNullString" use="optional"/>
+            <xs:attribute name="Duration" type="DurationType" use="optional"/>
+            <xs:attribute name="RevaccinationDueDate" type="xs:date" use="optional"/>
         </xs:complexType>
     </xs:element>
 
@@ -1299,6 +1304,17 @@
         <xs:restriction base="xs:string">
             <xs:pattern value="(&lt;|&gt;)? ?\d{1,3}(\.\d+)? ?(d|wk|mo|a)"/>
             <xs:pattern value="(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12]\d|3[01])"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DurationType">
+        <xs:annotation>
+            <xs:documentation>
+                A length of time expressed as a number of days, weeks, months or years plus the standard code for units (d|wk|mo|a), following the same UCUM convention as AgeType (example: 3a for three years).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{1,3}(\.\d+)? ?(d|wk|mo|a)"/>
         </xs:restriction>
     </xs:simpleType>
 
