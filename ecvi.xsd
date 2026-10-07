@@ -81,6 +81,7 @@
             01/29/2025: Renamed file to ecvi.xsd, updated target namespace to ecvi
             03/26/2025: Split Exhibition/Show/Rodeo movement option into Exhibition/Show and Rodeo separately.
             10/07/2026: Added optional Manufacturer, LotNumber, Duration and RevaccinationDueDate attributes to Vaccination. Added DurationType.
+            10/07/2026: Added optional AdministeredBy attribute to Vaccination.
         </xs:documentation>
     </xs:annotation>
 
@@ -1026,7 +1027,7 @@
     <xs:element name="Vaccination">
         <xs:annotation>
             <xs:documentation>
-                Vaccination information for animal or group. For now the type of vaccine is left as a simple string. Ideally will become a coded value from a standard set. The date is optional but highly suggested. Manufacturer, LotNumber, Duration and RevaccinationDueDate are optional and describe the product given, as recorded on a rabies certificate or vaccination record. Duration is the labeled duration of immunity (see DurationType), for example 1a or 3a. RevaccinationDueDate is the date the next dose is due, which receiving jurisdictions may use to confirm the vaccination is current.
+                Vaccination information for animal or group. For now the type of vaccine is left as a simple string. Ideally will become a coded value from a standard set. The date is optional but highly suggested. Manufacturer, LotNumber, Duration and RevaccinationDueDate are optional and describe the product given, as recorded on a rabies certificate or vaccination record. Duration is the labeled duration of immunity (see DurationType), for example 1a or 3a. RevaccinationDueDate is the date the next dose is due, which receiving jurisdictions may use to confirm the vaccination is current. AdministeredBy is optional and names the veterinarian, clinic or organization that gave the dose when it was not given by the certifying veterinarian.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1040,6 +1041,7 @@
             <xs:attribute name="LotNumber" type="nonNullString" use="optional"/>
             <xs:attribute name="Duration" type="DurationType" use="optional"/>
             <xs:attribute name="RevaccinationDueDate" type="xs:date" use="optional"/>
+            <xs:attribute name="AdministeredBy" type="nonNullString" use="optional"/>
         </xs:complexType>
     </xs:element>
 
