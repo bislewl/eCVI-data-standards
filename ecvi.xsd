@@ -85,6 +85,7 @@
             10/07/2026: Allow multiple diseases on Vaccination for combination vaccines, as already allowed on Test.
             10/07/2026: Added optional StatusDate attribute to HerdOrFlockStatus.
             10/07/2026: Added optional Color, id and DamRef attributes and optional Temperature element to Animal.
+            10/07/2026: Added optional AccessionNumber attribute to Field.
         </xs:documentation>
     </xs:annotation>
 
@@ -732,7 +733,7 @@
     <xs:element name="Field">
         <xs:annotation>
             <xs:documentation>
-                For testing performed outside of a laboratory, the Field element contains the relevant information. PremId (see PremIdType) is optional only if unavailable. Address (see AddressType) is optional only if unavailable and should contain the physical address of the test location. AccessionDate is a required date.
+                For testing performed outside of a laboratory, the Field element contains the relevant information. PremId (see PremIdType) is optional only if unavailable. Address (see AddressType) is optional only if unavailable and should contain the physical address of the test location. AccessionDate is a required date. AccessionNumber is an optional string for any reference number the veterinarian records for the field test, such as a test chart number.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -741,6 +742,7 @@
                 <xs:element name="Address" type="USAddress" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
             <xs:attribute name="AccessionDate" type="xs:date" use="required"/>
+            <xs:attribute name="AccessionNumber" type="nonNullString" use="optional"/>
         </xs:complexType>
     </xs:element>
 
