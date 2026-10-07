@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example of the optional fields proposed for 3.2: vaccine product details,
+  AdministeredBy, combination vaccines, Color, Temperature, DamRef, TestDate
+  and repeating Statements. All names and numbers are fictitious.
+-->
+<eCVI xmlns="http://www.usaha.org/xmlns/ecvi" XMLSchemaVersion="3.2" CviNumber="EXAMPLE-0001"
+      IssueDate="2026-10-01" ExpirationDate="2026-10-31" ShipmentDate="2026-10-03">
+  <Veterinarian LicenseState="OR" LicenseNumber="9999" NationalAccreditationNumber="999999">
+    <Person>
+      <NameParts><FirstName>Pat</FirstName><LastName>Example</LastName></NameParts>
+      <Phone Number="5035550100"/>
+    </Person>
+  </Veterinarian>
+  <MovementPurposes><MovementPurpose>Owner relocating</MovementPurpose></MovementPurposes>
+  <Origin>
+    <Address><Line1>100 Example Rd</Line1><Town>Salem</Town><State>OR</State><ZIP>97301</ZIP></Address>
+    <Person><NameParts><FirstName>Sam</FirstName><LastName>Owner</LastName></NameParts></Person>
+  </Origin>
+  <Destination>
+    <Address><Line1>200 Example Ave</Line1><Town>Olympia</Town><State>WA</State><ZIP>98501</ZIP></Address>
+    <Person><NameParts><FirstName>Sam</FirstName><LastName>Owner</LastName></NameParts></Person>
+  </Destination>
+  <Accessions>
+    <Accession id="LAB1">
+      <Laboratory AccessionDate="2026-09-20" AccessionNumber="L-26-01234">
+        <LabName>Example Veterinary Diagnostic Laboratory</LabName>
+      </Laboratory>
+    </Accession>
+  </Accessions>
+
+  <!-- The dam. Its id lets the puppy refer to it. -->
+  <Animal id="dam1" Age="3a" Breed="Labrador Retriever" Sex="Female" Color="Black"
+          InspectionDate="2026-10-01">
+    <SpeciesCode Code="CAN"/>
+    <AnimalTags><ManagementID Number="Juniper"/></AnimalTags>
+    <!-- Sample drawn on 9/18, two days before the laboratory accession date. -->
+    <Test AccessionRef="LAB1" TestDate="2026-09-18">
+      <Result ResultName="RESULT"><ResultString>NEG</ResultString></Result>
+      <DiseaseOther Text="Heartworm"/>
+    </Test>
+    <!-- Rabies dose given by another clinic, with product details. -->
+    <Vaccination VaccineType="Rabies" Date="2025-06-01" Manufacturer="Example Animal Health"
+                 LotNumber="R1234A" Duration="3a" RevaccinationDueDate="2028-06-01"
+                 AdministeredBy="Example Valley Animal Clinic">
+      <DiseaseCode Code="Rabies"/>
+    </Vaccination>
+    <!-- One combination dose against four diseases. -->
+    <Vaccination VaccineType="DHPP" Date="2026-04-15" Manufacturer="Example Animal Health"
+                 LotNumber="D5678B" Duration="1a" RevaccinationDueDate="2027-04-15">
+      <DiseaseOther Text="Canine distemper"/>
+      <DiseaseOther Text="Canine adenovirus"/>
+      <DiseaseOther Text="Canine parainfluenza"/>
+      <DiseaseOther Text="Canine parvovirus"/>
+    </Vaccination>
+    <Temperature Value="101.4"/>
+    <Statements>Statement one required by the destination state.</Statements>
+    <Statements>Statement two required by the destination state.</Statements>
+  </Animal>
+
+  <!-- Nursing puppy shipped with its dam. -->
+  <Animal DamRef="dam1" Age="5wk" Breed="Labrador Retriever" Sex="Male" Color="Yellow"
+          InspectionDate="2026-10-01">
+    <SpeciesCode Code="CAN"/>
+    <AnimalTags><ManagementID Number="Juniper pup 1"/></AnimalTags>
+    <Temperature Value="38.7" Unit="Cel"/>
+  </Animal>
+</eCVI>

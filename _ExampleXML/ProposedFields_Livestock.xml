@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example of the optional fields proposed for 3.2: HerdOrFlockStatus StatusDate,
+  Field AccessionNumber and TestDate. All names and numbers are fictitious.
+-->
+<eCVI xmlns="http://www.usaha.org/xmlns/ecvi" XMLSchemaVersion="3.2" CviNumber="EXAMPLE-0002"
+      IssueDate="2026-10-01" ExpirationDate="2026-10-31">
+  <Veterinarian LicenseState="MN" LicenseNumber="9999" NationalAccreditationNumber="999999">
+    <Person><NameParts><FirstName>Pat</FirstName><LastName>Example</LastName></NameParts></Person>
+  </Veterinarian>
+  <MovementPurposes><MovementPurpose>Breeding</MovementPurpose></MovementPurposes>
+  <Origin>
+    <PremId>00EXAMP</PremId>
+    <Address><Line1>300 Example Ln</Line1><Town>Mankato</Town><State>MN</State><ZIP>56001</ZIP></Address>
+    <!-- The date the herd status was last established. -->
+    <HerdOrFlockStatus Disease="Tuberculosis" HerdOrFlockID="EX0001" Status="Accredited"
+                       StatusDate="2026-09-01"/>
+    <HerdOrFlockStatus Disease="Brucellosis" HerdOrFlockID="EX0001" Status="Certified Free"
+                       StatusDate="2026-03-15"/>
+  </Origin>
+  <Destination>
+    <Address><Line1>400 Example Rd</Line1><Town>Salina</Town><State>KS</State><ZIP>67401</ZIP></Address>
+  </Destination>
+  <Accessions>
+    <!-- A field test can now carry the veterinarian's reference number. -->
+    <Accession id="CFT1" InfieldTest="true">
+      <Field AccessionDate="2026-09-01" AccessionNumber="CFT-0042"/>
+    </Accession>
+  </Accessions>
+  <Animal Age="14mo" Breed="AN" Sex="Female" InspectionDate="2026-10-01">
+    <SpeciesCode Code="BEF"/>
+    <AnimalTags><AIN Number="840003999000001"/></AnimalTags>
+    <!-- Injected 9/1 and read 72 hours later. -->
+    <Test AccessionRef="CFT1" TestDate="2026-09-04" TestType="Caudal fold">
+      <Result ResultName="RESULT"><ResultString>NEG</ResultString></Result>
+      <DiseaseCode Code="Tuberculosis"/>
+    </Test>
+  </Animal>
+</eCVI>
