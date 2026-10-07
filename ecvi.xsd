@@ -87,6 +87,7 @@
             10/07/2026: Added optional Color, id and DamRef attributes and optional Temperature element to Animal.
             10/07/2026: Added optional AccessionNumber attribute to Field.
             10/07/2026: Added optional TestDate attribute to Test.
+            10/07/2026: Allow Statements to repeat so that each required statement is its own element.
         </xs:documentation>
     </xs:annotation>
 
@@ -116,7 +117,7 @@
                     <xs:element ref="GroupLot"/>
                     <xs:element ref="Product"/>
                 </xs:choice>
-                <xs:element ref="Statements" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Statements" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Attachment" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="MiscAttribute" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Binary" minOccurs="0" maxOccurs="unbounded"/>
@@ -170,7 +171,7 @@
                     <xs:element ref="GroupLot"/>
                     <xs:element ref="Product"/>
                 </xs:choice>
-                <xs:element ref="Statements" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Statements" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Attachment" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="MiscAttribute" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Binary" minOccurs="0" maxOccurs="unbounded"/>
@@ -207,7 +208,7 @@
                 <xs:element name="Location" type="PremType" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="Accessions" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="Animal" minOccurs="1" maxOccurs="unbounded"/>
-                <xs:element ref="Statements" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Statements" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Attachment" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="MiscAttribute" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Binary" minOccurs="0" maxOccurs="unbounded"/>
@@ -408,7 +409,7 @@
                 <xs:element ref="Vaccination" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="CountryOfBirth" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="Temperature" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="Statements" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Statements" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="MiscAttribute" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="Age" type="AgeType" use="optional"/>
@@ -438,7 +439,7 @@
                 <xs:element ref="Test" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Vaccination" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="CountryOfBirth" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="Statements" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Statements" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="MiscAttribute" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="Quantity" type="xs:float" use="optional"/>
@@ -467,7 +468,7 @@
                 <xs:element name="ProductID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Test" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Vaccination" minOccurs="0" maxOccurs="unbounded"/>
-                <xs:element ref="Statements" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Statements" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="MiscAttribute" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="ProductType" type="CommodityType" use="required"/>
@@ -482,7 +483,7 @@
     <xs:element name="Statements" type="xs:string">
         <xs:annotation>
             <xs:documentation> 
-                Additional statements that may be required by various jurisdictions may be included here. These statements must not take the place of or modify the structured content found elsewhere in the standard.
+                Additional statements that may be required by various jurisdictions may be included here. Each statement should be given in its own Statements element. These statements must not take the place of or modify the structured content found elsewhere in the standard.
             </xs:documentation>
         </xs:annotation>
     </xs:element>
