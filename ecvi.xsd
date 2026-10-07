@@ -86,6 +86,7 @@
             10/07/2026: Added optional StatusDate attribute to HerdOrFlockStatus.
             10/07/2026: Added optional Color, id and DamRef attributes and optional Temperature element to Animal.
             10/07/2026: Added optional AccessionNumber attribute to Field.
+            10/07/2026: Added optional TestDate attribute to Test.
         </xs:documentation>
     </xs:annotation>
 
@@ -987,6 +988,13 @@
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="TestType" type="nonNullString" use="optional"/>
+            <xs:attribute name="TestDate" type="xs:date" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        The date the sample was collected or the field test was performed. If omitted, the AccessionDate of the referenced accession applies.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 
