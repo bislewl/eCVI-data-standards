@@ -84,6 +84,7 @@
             10/07/2026: Added optional AdministeredBy attribute to Vaccination.
             10/07/2026: Allow multiple diseases on Vaccination for combination vaccines, as already allowed on Test.
             10/07/2026: Added optional StatusDate attribute to HerdOrFlockStatus.
+            10/07/2026: Added optional Color, id and DamRef attributes and optional Temperature element to Animal.
         </xs:documentation>
     </xs:annotation>
 
@@ -391,7 +392,7 @@
     <xs:element name="Animal">
         <xs:annotation>
             <xs:documentation> 
-                The Animal element is used for all individually identifiable animals in a shipment even when those may have been entered in an electronic source document using shorthand tools such as identifier ranges. Animal species may be designated by code (see SpeciesCode) or other (see SpeciesOther). At least one animal tag (see AnimalTags) is required. Test (see TestType) is optional, and there is no limit on additional Tests. Age is optional (although often required by regulatory policy) and may be specified as either: a number of days, weeks, months or years plus the standard code for units (d|wk|mo|a) (example: 3wk), age definitions adhere to UCUM - http://unitsofmeasure.org/ucum.html), or as a specific date of birth as a four-digit year, two-digit month, and two-digit date, separated by dashes (example: 2001-05-31). Breed is optional and specified by a two or three uppercase letter code or by a string description such as "black". The code list is not specified in the standard but most are available at: https://www.naab-css.org/uniform-breed-codes, and https://www.aphis.usda.gov/animal_health/vs_ocio/downloads/date_standards/icvi_data_concepts.pdf. Sex (see SexType) reflects the most common variations needed for regulatory. If other configurations are needed they are provided as a string in SexDetail. "Mixed" is not an allowable value for a single Animal (provided for use with Group). InspectionDate is a required date, and is the date the animals were inspected by the vet. If the inspection took place over multiple days, use the first date.
+                The Animal element is used for all individually identifiable animals in a shipment even when those may have been entered in an electronic source document using shorthand tools such as identifier ranges. Animal species may be designated by code (see SpeciesCode) or other (see SpeciesOther). At least one animal tag (see AnimalTags) is required. Test (see TestType) is optional, and there is no limit on additional Tests. Age is optional (although often required by regulatory policy) and may be specified as either: a number of days, weeks, months or years plus the standard code for units (d|wk|mo|a) (example: 3wk), age definitions adhere to UCUM - http://unitsofmeasure.org/ucum.html), or as a specific date of birth as a four-digit year, two-digit month, and two-digit date, separated by dashes (example: 2001-05-31). Breed is optional and specified by a two or three uppercase letter code or by a string description such as "black". The code list is not specified in the standard but most are available at: https://www.naab-css.org/uniform-breed-codes, and https://www.aphis.usda.gov/animal_health/vs_ocio/downloads/date_standards/icvi_data_concepts.pdf. Sex (see SexType) reflects the most common variations needed for regulatory. If other configurations are needed they are provided as a string in SexDetail. "Mixed" is not an allowable value for a single Animal (provided for use with Group). InspectionDate is a required date, and is the date the animals were inspected by the vet. If the inspection took place over multiple days, use the first date. Color is an optional string describing the animal's color or markings. Temperature (see Temperature) is optional and records the temperature taken at inspection. The optional id identifies this Animal within the document so that another Animal can refer to it. DamRef is optional and, for nursing young shipped with their dam, refers to the id of the dam's Animal element on the same certificate.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -404,6 +405,7 @@
                 <xs:element ref="Test" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="Vaccination" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="CountryOfBirth" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Temperature" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="Statements" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="MiscAttribute" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
@@ -411,7 +413,10 @@
             <xs:attribute name="Breed" type="xs:string" use="optional"/>
             <xs:attribute name="Sex" type="SexType" use="optional"/>
             <xs:attribute name="SexDetail" type="xs:string" use="optional"/>
+            <xs:attribute name="Color" type="nonNullString" use="optional"/>
             <xs:attribute name="InspectionDate" type="xs:date" use="required"/>
+            <xs:attribute name="id" type="xs:ID" use="optional"/>
+            <xs:attribute name="DamRef" type="xs:IDREF" use="optional"/>
         </xs:complexType>
     </xs:element>
 
@@ -1063,6 +1068,25 @@
         <xs:complexType>
             <xs:attribute name="ForeignBorn" type="xs:boolean" use="required"/>
             <xs:attribute name="CountryCode" type="ISOCountryCode" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Temperature">
+        <xs:annotation>
+            <xs:documentation>
+                Body temperature of an animal taken at inspection. Value is a required decimal. Unit is the UCUM code for the scale, [degF] (Fahrenheit, the default) or Cel (Celsius).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="Value" type="xs:decimal" use="required"/>
+            <xs:attribute name="Unit" use="optional" default="[degF]">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="[degF]"/>
+                        <xs:enumeration value="Cel"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>   
     
